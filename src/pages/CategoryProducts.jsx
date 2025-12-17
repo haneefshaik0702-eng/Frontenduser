@@ -8,15 +8,19 @@ export default function CategoryProducts() {
 
   useEffect(() => {
     api.get(`/products?category=${id}`)
-      .then(res => setProducts(res.data));
+      .then(res => setProducts(res.data))
+      .catch(() => alert("Failed to load products"));
   }, [id]);
 
   return (
-    <div>
+    <div style={{ padding: 20 }}>
       <h2>Products</h2>
+
+      {products.length === 0 && <p>No products found</p>}
+
       {products.map(p => (
         <div key={p._id}>
-          <p>{p.name} - ₹{p.price}</p>
+          <strong>{p.name}</strong> – ₹{p.price}
         </div>
       ))}
     </div>
