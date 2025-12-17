@@ -1,9 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
 import Products from "./pages/Products";
+import Categories from "./pages/Categories";
+import CategoryProducts from "./pages/CategoryProducts";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Login from "./pages/Login";
-import Navbar from "./components/Navbar";
 
 export default function App() {
   return (
@@ -11,10 +14,10 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Products />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<Orders />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/category/:id" element={<CategoryProducts />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
