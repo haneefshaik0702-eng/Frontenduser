@@ -7,17 +7,16 @@ export default function Vendors() {
   const [vendors, setVendors] = useState([]);
 
   useEffect(() => {
-    api.get(`/vendors?folder=${folderId}`)
-      .then(res => setVendors(res.data));
+    api.get(`/vendors?folder=${folderId}`).then(res => setVendors(res.data));
   }, [folderId]);
 
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <h2>Vendors</h2>
       {vendors.map(v => (
-        <div key={v._id}>
-          <Link to={`/vendors/${v._id}`}>{v.name}</Link>
-        </div>
+        <Link key={v._id} to={`/vendor/${v._id}/categories`}>
+          <p>{v.name}</p>
+        </Link>
       ))}
     </div>
   );
