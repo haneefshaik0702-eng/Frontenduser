@@ -13,6 +13,8 @@ export default function App() {
         <Route path="/" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/category/:id" element={<CategoryProducts />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
