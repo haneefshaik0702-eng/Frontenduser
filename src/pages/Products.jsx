@@ -1,35 +1,22 @@
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../api";
 
-export default function Products() {
+export default function CategoryProducts() {
+  const { id } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    api.get("/products")
-      .then(res => setProducts(res.data))
-      .catch(() => alert("Failed to load products"));
-  }, []);
+    api.get(`/products?category=${id}`)
+      .then(res => setProducts(res.data));
+  }, [id]);
 
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <h2>Products</h2>
-
-      {products.length === 0 && <p>No products</p>}
-
       {products.map(p => (
-        <div key={p._id} style={{ borderBottom: "1px solid #ccc", marginBottom: 10 }}>
-          <h4>{p.name}</h4>
-          <p>₹{p.price}</p>
-          <button
-            onClick={() => {
-              const cart = JSON.parse(localStorage.getItem("cart")) || [];
-              cart.push({ ...p, qty: 1 });
-              localStorage.setItem("cart", JSON.stringify(cart));
-              alert("Added to cart");
-            }}
-          >
-            Add to cart
-          </button>
+        <div key={p._id}>
+          <p>{p.name} - ₹{p.price}</p>
         </div>
       ))}
     </div>
