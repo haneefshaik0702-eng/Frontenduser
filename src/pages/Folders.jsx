@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "../api";
 import { Link } from "react-router-dom";
+import api from "../api";
 
 export default function Folders() {
   const [folders, setFolders] = useState([]);
@@ -10,12 +10,12 @@ export default function Folders() {
   }, []);
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Choose Service</h2>
+    <div>
+      <h2>Folders</h2>
       {folders.map(f => (
-        <div key={f._id}>
-          <Link to={`/folders/${f._id}`}>{f.name}</Link>
-        </div>
+        <Link key={f._id} to={`/folder/${f._id}/vendors`}>
+          <p>{f.name}</p>
+        </Link>
       ))}
     </div>
   );
