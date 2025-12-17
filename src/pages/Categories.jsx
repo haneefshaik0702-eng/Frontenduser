@@ -6,20 +6,15 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    api.get("/categories")
-      .then(res => setCategories(res.data))
-      .catch(() => alert("Failed to load categories"));
+    api.get("/categories").then(res => setCategories(res.data));
   }, []);
 
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <h2>Categories</h2>
-
-      {categories.map(cat => (
-        <div key={cat._id} style={{ marginBottom: 10 }}>
-          <Link to={`/category/${cat._id}`}>
-            {cat.name}
-          </Link>
+      {categories.map(c => (
+        <div key={c._id}>
+          <Link to={`/category/${c._id}`}>{c.name}</Link>
         </div>
       ))}
     </div>
