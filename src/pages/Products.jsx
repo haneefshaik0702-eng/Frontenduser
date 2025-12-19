@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";  
-import { useEffect, useState } from "react";  
-import api from "../api";  
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../api";
 
-export default function Products() {  
-  const { subcategoryId } = useParams();  
-  const [products, setProducts] = useState([]);  
+export default function Products() {
+  const { subcategoryId } = useParams();
+  const [products, setProducts] = useState([]);
 
-  useEffect(() => {  
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await api.get(`/products?subcategory=${subcategoryId}`);
@@ -16,17 +16,18 @@ export default function Products() {
       }
     };
     fetchProducts();
-  }, [subcategoryId]);  
+  }, [subcategoryId]);
 
-  return (  
-    <div>  
-      <h2>Products</h2>  
-      {products.length === 0 && <p>No products found.</p>}
-      {products.map(p => (  
+  return (
+    <div>
+      <h2>Products</h2>
+      {products.length === 0 && <p>No products found in this subcategory.</p>}
+      {products.map((p) => (
         <div key={p._id}>
-          <p>{p.name} - ${p.price}</p>
+          <p>{p.name}</p>
+          <p>${p.price}</p>
         </div>
-      ))}  
-    </div>  
-  );  
+      ))}
+    </div>
+  );
 }
