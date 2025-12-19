@@ -1,7 +1,8 @@
 import axios from "axios";
 
+// Local backend URL
 const API = axios.create({
-  baseURL: "https://backend-ynph.onrender.com/api",
+  baseURL: "http://localhost:10000/api",
 });
 
 // Add token automatically to protected requests
