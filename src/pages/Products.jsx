@@ -1,32 +1,32 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import api from "../api";
+import { useParams } from "react-router-dom";  
+import { useEffect, useState } from "react";  
+import api from "../api";  
 
-export default function Products() {
-  const { subcategoryId } = useParams();
-  const [products, setProducts] = useState([]);
+export default function Products() {  
+  const { subcategoryId } = useParams();  
+  const [products, setProducts] = useState([]);  
 
-  useEffect(() => {
-    api.get(`/products?subcategory=${subcategoryId}`)
-      .then(res => setProducts(res.data));
-  }, [subcategoryId]);
+  useEffect(() => {  
+    const fetchProducts = async () => {
+      try {
+        const res = await api.get(`/products?subcategory=${subcategoryId}`);
+        setProducts(res.data);
+      } catch (err) {
+        console.error(err.response?.data || err.message);
+      }
+    };
+    fetchProducts();
+  }, [subcategoryId]);  
 
-  const addToCart = (p) => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({ ...p, qty: 1 });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Added to cart");
-  };
-
-  return (
-    <div>
-      <h2>Products</h2>
-      {products.map(p => (
+  return (  
+    <div>  
+      <h2>Products</h2>  
+      {products.length === 0 && <p>No products found.</p>}
+      {products.map(p => (  
         <div key={p._id}>
-          <p>{p.name} - ₹{p.price}</p>
-          <button onClick={() => addToCart(p)}>Add</button>
+          <p>{p.name} - ${p.price}</p>
         </div>
-      ))}
-    </div>
-  );
+      ))}  
+    </div>  
+  );  
 }
