@@ -9,7 +9,8 @@ export default function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await api.get(`/products?subcategory=${subcategoryId}`);
+        if (!subcategoryId) return;
+        const res = await api.get(`/products/subcategory/${subcategoryId}`);
         setProducts(res.data);
       } catch (err) {
         console.error(err.response?.data || err.message);
